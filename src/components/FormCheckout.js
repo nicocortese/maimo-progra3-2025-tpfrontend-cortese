@@ -42,7 +42,6 @@ export const CheckoutForm = ({ handleAddOrder }) => (
           email: "",
         }}
         onSubmit={(values) => {
-          console.log("Datos del formulario:", values);
           handleAddOrder(values);
         }}
       >

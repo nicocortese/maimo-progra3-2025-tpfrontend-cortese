@@ -22,7 +22,6 @@ const ProductDetail = ({ id }) => {
   const primaryImage = product.images?.[0] || null;
 
   const addToCart = () => {
-    console.log("product", product);
     if (!selectedSize) {
       alert("Debes elegir un talle para agregar al carrito.");
       return;

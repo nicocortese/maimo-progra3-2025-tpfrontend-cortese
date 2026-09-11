@@ -52,9 +52,11 @@ Sistema de suscripción para recibir novedades, promociones y los últimos artí
 
 Para correr este entorno de frontend en tu máquina local, es recomendable tener el [Backend](https://github.com/tiagocollado/retro-kicks-backend) corriendo en paralelo para que la carga de datos funcione correctamente.
 
+**Requisitos:** [Node.js](https://nodejs.org/) 24 LTS (24.21 o superior) y Yarn (`npm install -g yarn`).
+
 1.  **Clonar el repositorio:**
     ```bash
-    git clone [URL_DE_ESTE_REPOSITORIO]
+    git clone https://github.com/nicocortese/retro-kicks-frontend.git
     ```
 
 2.  **Navegar al directorio:**
@@ -64,18 +66,18 @@ Para correr este entorno de frontend en tu máquina local, es recomendable tener
 
 3.  **Instalar las dependencias:**
     ```bash
-    npm install
+    yarn install
     ```
 
 4.  **Configurar Variables de Entorno:**
-    Crear un archivo `.env.local` en la raíz del proyecto y vincular la URL del backend local o de producción:
+    Copiar `.env.example` como `.env` y poner la URL del backend **sin `/api` al final** (el código ya lo agrega):
     ```env
-    NEXT_PUBLIC_API_URL=http://localhost:PUERTO_DEL_BACKEND/api
+    NEXT_PUBLIC_API_URL=http://localhost:4000
     ```
 
 5.  **Iniciar el servidor de desarrollo:**
     ```bash
-    npm run dev
+    yarn dev
     ```
 
 6.  **Visualizar la aplicación:**

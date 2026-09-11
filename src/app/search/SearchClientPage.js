@@ -42,7 +42,7 @@ const SearchPage = () => {
     <section className="max-w-7xl mx-auto px-6 py-12">
       <div className="text-center mb-10">
         <h1 className="text-3xl font-bold mb-3 pt-10">
-          {resultText} para: "{query}"
+          {resultText} para: &quot;{query}&quot;
         </h1>
       </div>
 

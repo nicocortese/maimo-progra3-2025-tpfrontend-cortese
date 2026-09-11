@@ -9,7 +9,7 @@ import {
 } from "react";
 import axios from "axios";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 
 const ShopContext = createContext();
 
@@ -23,6 +23,8 @@ export const ShopContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState([]);
 
+  // localStorage solo existe en el navegador: se lee después del primer render
+  /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
     if (typeof window === "undefined") return;
     const storedCart = localStorage.getItem("cart");
@@ -30,6 +32,7 @@ export const ShopContextProvider = ({ children }) => {
     const storedWishlist = localStorage.getItem("wishlist");
     if (storedWishlist) setWishlist(JSON.parse(storedWishlist));
   }, []);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -121,7 +124,7 @@ export const ShopContextProvider = ({ children }) => {
     }
   }, []);
 
-  const getProductBycategory = useCallback(async (slug) => {
+  const getProductsByCategory = useCallback(async (slug) => {
     setLoading(true);
     try {
       const res = await axios.get(`${API_URL}/api/categories/${slug}`);
@@ -134,7 +137,9 @@ export const ShopContextProvider = ({ children }) => {
     }
   }, []);
 
+  // Carga inicial de productos y categorías desde la API
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     getProducts();
     getCategories();
   }, [getProducts, getCategories]);
@@ -184,7 +189,7 @@ export const ShopContextProvider = ({ children }) => {
         loading,
         getProducts,
         getOneProduct,
-        getProductBycategory,
+        getProductsByCategory,
         categoryProducts,
         categories,
         addOrder,

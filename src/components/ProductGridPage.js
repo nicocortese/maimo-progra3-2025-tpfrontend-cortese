@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import ShopCards from "@/components/ShopCards";
 import Loading from "@/components/Loading";
@@ -8,25 +7,12 @@ import { useShopContext } from "@/contexts/ShopContext";
 
 const ProductGridPage = ({ filterValue, titlePrefix, descriptionText }) => {
   const { products, categories, loading } = useShopContext();
-  const [filteredProducts, setFilteredProducts] = useState([]);
 
-  useEffect(() => {
-    if (!filterValue || products.length === 0 || categories.length === 0)
-      return;
-
-    const currentCategory = categories.find((cat) => cat.slug === filterValue);
-    if (!currentCategory) {
-      setFilteredProducts([]);
-      return;
-    }
-    const categoryId = currentCategory._id;
-
-    const productsToShow = products.filter((product) =>
-      product.categories.includes(categoryId)
-    );
-
-    setFilteredProducts(productsToShow);
-  }, [filterValue, products, categories]);
+  // Se calcula en cada render: no hace falta guardarlo en un estado
+  const currentCategory = categories.find((cat) => cat.slug === filterValue);
+  const filteredProducts = currentCategory
+    ? products.filter((product) => product.categories.includes(currentCategory._id))
+    : [];
 
   if (loading) return <Loading />;
 

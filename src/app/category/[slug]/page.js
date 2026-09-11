@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect } from "react";
+import { use, useEffect } from "react";
 import { useShopContext } from "@/contexts/ShopContext";
 import ShopCards from "@/components/ShopCards";
 
 const Categorypage = ({ params }) => {
-  const { slug } = params;
+  const { slug } = use(params); // En Next 16 params es una promesa
   const { categoryProducts, getProductsByCategory, loading } = useShopContext();
 
   useEffect(() => {
