@@ -17,6 +17,7 @@ export const ShopContextProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [wishlist, setWishlist] = useState([]);
   const [products, setProducts] = useState([]);
+  const [productsError, setProductsError] = useState(null);
   const [product, setProduct] = useState({});
   const [categoryProducts, setCategoryProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -88,10 +89,12 @@ export const ShopContextProvider = ({ children }) => {
   const getProducts = useCallback(async () => {
     try {
       setLoading(true);
+      setProductsError(null);
       const res = await axios.get(`${API_URL}/api/products`);
       setProducts(res.data.products);
     } catch (error) {
-      console.log(error);
+      console.error("Error al cargar productos:", error);
+      setProductsError("No pudimos cargar los productos. Probá de nuevo en unos minutos.");
     } finally {
       setLoading(false);
     }
@@ -173,6 +176,7 @@ export const ShopContextProvider = ({ children }) => {
     <ShopContext.Provider
       value={{
         products,
+        productsError,
         product,
         cart,
         cartQty,
