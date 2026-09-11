@@ -8,7 +8,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const ProductCarousel = () => {
-  const { products, loading } = useShopContext();
+  const { products, productsError, loading } = useShopContext();
 
   const settings = {
     dots: true,
@@ -44,6 +44,14 @@ const ProductCarousel = () => {
   };
 
   if (loading) return <Loading />;
+
+  if (productsError) {
+    return (
+      <section className="max-w-[1200px] mx-auto px-4 py-16 text-center">
+        <p className="text-lg text-gray-500">{productsError}</p>
+      </section>
+    );
+  }
 
   return (
     <section className="max-w-[1200px] mx-auto px-4 py-10">

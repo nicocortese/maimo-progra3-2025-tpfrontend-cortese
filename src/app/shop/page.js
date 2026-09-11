@@ -5,7 +5,7 @@ import Loading from "@/components/Loading";
 import { useShopContext } from "@/contexts/ShopContext";
 
 const ShopPage = () => {
-  const { products, loading } = useShopContext();
+  const { products, productsError, loading } = useShopContext();
 
   if (loading) return <Loading />;
 
@@ -20,7 +20,11 @@ const ShopPage = () => {
         </p>
       </div>
 
-      {products.length > 0 ? (
+      {productsError ? (
+        <div className="text-center py-16">
+          <p className="text-lg text-gray-500">{productsError}</p>
+        </div>
+      ) : products.length > 0 ? (
         <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {products.map((product) => (
             <ShopCards key={product._id} product={product} />
